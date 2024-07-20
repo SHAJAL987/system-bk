@@ -1,0 +1,25 @@
+app:
+  general:
+    logger:
+      trace: traceLogger
+      error: errorLogger
+      performance: performanceLogger
+      serviceIP: localhost
+      logPath: "E:/cblrestware_log/"
+spring:
+  application:
+    name: system-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/AUTH
+    username: postgres
+    password: 123456
+  jpa:
+    properties:
+      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 1001

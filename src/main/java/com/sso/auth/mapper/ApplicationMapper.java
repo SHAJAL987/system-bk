@@ -1,7 +1,8 @@
 package com.sso.auth.mapper;
 
 import com.sso.auth.model.Application;
-import com.sso.auth.payload.ApplicationDto;
+import com.sso.auth.payload.Application.ApplicationDto;
+import com.sso.auth.payload.Application.ApplicationList;
 
 public class ApplicationMapper {
     public static Application mapToApplication(ApplicationDto applicationDto){
@@ -19,8 +20,24 @@ public class ApplicationMapper {
         applicationDto.setAppCode(application.getAppCode());
         applicationDto.setAppName(application.getAppName());
         applicationDto.setAppUrl(application.getAppUrl());
-        applicationDto.setAppStatus(applicationDto.getAppStatus());
+        applicationDto.setAppStatus(application.getAppStatus());
 
         return applicationDto;
+    }
+
+    public static ApplicationList mapToApplicationList(Application application){
+        String status;
+        if (application.getAppStatus().equals("Y")){
+            status = "Active";
+        }else {
+            status = "Inactive";
+        }
+        ApplicationList applicationList = new ApplicationList();
+        applicationList.setId(application.getId());
+        applicationList.setAppCode(application.getAppCode());
+        applicationList.setAppUrl(application.getAppUrl());
+        applicationList.setAppName(application.getAppName());
+        applicationList.setAppStatus(status);
+        return applicationList;
     }
 }
