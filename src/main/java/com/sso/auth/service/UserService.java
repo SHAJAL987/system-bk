@@ -1,7 +1,7 @@
 package com.sso.auth.service;
 
-import com.sso.auth.payload.User.UserDto;
-import com.sso.auth.payload.User.UserListResponse;
+import com.sso.auth.payload.user.UserDto;
+import com.sso.auth.payload.user.UserListResponse;
 import org.springframework.stereotype.Repository;
 
 @Repository

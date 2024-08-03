@@ -1,7 +1,7 @@
 package com.sso.auth.mapper;
 
 import com.sso.auth.model.UserRole;
-import com.sso.auth.payload.UserRole.UserRoleDto;
+import com.sso.auth.payload.userRole.UserRoleDto;
 
 public class UserRoleMapper {
     public static UserRole mapToUserRole(UserRoleDto request){

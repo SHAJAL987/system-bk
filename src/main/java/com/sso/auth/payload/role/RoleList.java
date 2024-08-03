@@ -1,4 +1,4 @@
-package com.sso.auth.payload.Application;
+package com.sso.auth.payload.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationList {
+public class RoleList {
     private int id;
-    private Integer appCode;
-    private String appName;
-    private String appUrl;
-    private String appStatus;
+    private String roleName;
 }

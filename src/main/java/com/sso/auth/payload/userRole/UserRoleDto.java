@@ -1,19 +1,18 @@
-package com.sso.auth.payload.Application;
+package com.sso.auth.payload.userRole;
 
-import com.sso.auth.payload.Application.ApplicationList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationListResponse {
-    private List<ApplicationList> applicationList;
+public class UserRoleDto {
+    private int id;
+    private int userId;
+    private int roleId;
     private String correlationId;
     private String responseCode;
     private String responseMessage;

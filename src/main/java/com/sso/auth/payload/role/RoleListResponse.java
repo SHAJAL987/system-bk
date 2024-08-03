@@ -1,17 +1,18 @@
-package com.sso.auth.payload.Role;
+package com.sso.auth.payload.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDto {
-    private int id;
-    private String roleName;
+public class RoleListResponse {
+    private List<RoleList> roleList;
     private String correlationId;
     private String responseCode;
     private String responseMessage;

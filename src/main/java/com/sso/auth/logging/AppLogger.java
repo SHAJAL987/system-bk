@@ -1,12 +1,13 @@
-package com.sso.auth.Utilities;
+package com.sso.auth.logging;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AppLogger {
+
     private final Logger traceLogger;
     private final Logger errorLogger;
-    public AppLogger(String traceLoggerName, String errorLoggerName) {
+    AppLogger(String traceLoggerName, String errorLoggerName) {
         this.traceLogger = LoggerFactory.getLogger(traceLoggerName);
         this.errorLogger = LoggerFactory.getLogger(errorLoggerName);
     }

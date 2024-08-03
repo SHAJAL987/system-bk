@@ -1,19 +1,15 @@
-package com.sso.auth.payload.Role;
+package com.sso.auth.payload.exception;
 
-import com.sso.auth.payload.Role.RoleList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleListResponse {
-    private List<RoleList> roleList;
+public class ExceptionDetails {
     private String correlationId;
     private String responseCode;
     private String responseMessage;

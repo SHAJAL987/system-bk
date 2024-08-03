@@ -1,4 +1,4 @@
-package com.sso.auth.payload.UserRole;
+package com.sso.auth.payload.menu;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRoleDto {
+public class MenuDto {
     private int id;
-    private int userId;
+    private String name;
+    private String level;
+    private String url;
+    private String isRoot;
+    private String isParent;
+    private String isChild;
+    private int parentId;
+    private int appId;
     private int roleId;
     private String correlationId;
     private String responseCode;

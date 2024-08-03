@@ -1,4 +1,4 @@
-package com.sso.auth.payload.Application;
+package com.sso.auth.payload.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

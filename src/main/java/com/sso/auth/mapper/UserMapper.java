@@ -1,8 +1,8 @@
 package com.sso.auth.mapper;
 
 import com.sso.auth.model.User;
-import com.sso.auth.payload.User.UserDto;
-import com.sso.auth.payload.User.UserList;
+import com.sso.auth.payload.user.UserDto;
+import com.sso.auth.payload.user.UserList;
 
 public class UserMapper {
     public static User mapToUser(UserDto request){

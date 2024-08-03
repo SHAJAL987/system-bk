@@ -1,4 +1,4 @@
-package com.sso.auth.Utilities;
+package com.sso.auth.payload.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

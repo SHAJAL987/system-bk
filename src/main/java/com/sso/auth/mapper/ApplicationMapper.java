@@ -1,8 +1,8 @@
 package com.sso.auth.mapper;
 
 import com.sso.auth.model.Application;
-import com.sso.auth.payload.Application.ApplicationDto;
-import com.sso.auth.payload.Application.ApplicationList;
+import com.sso.auth.payload.application.ApplicationDto;
+import com.sso.auth.payload.application.ApplicationList;
 
 public class ApplicationMapper {
     public static Application mapToApplication(ApplicationDto applicationDto){

@@ -1,19 +1,21 @@
-package com.sso.auth.payload.User;
+package com.sso.auth.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserListResponse {
-    private List<UserList> userList;
-    private String correlationId;
+public class ValidationResponse {
+    private Map<String, String> errors;
+    private String serviceId;
     private String responseCode;
     private String responseMessage;
+    private String channelTransactionId;
+    private String timeStamp;
 }

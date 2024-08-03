@@ -1,4 +1,4 @@
-package com.sso.auth.payload.User;
+package com.sso.auth.payload.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserList {
+public class RoleDto {
     private int id;
-    private String mail;
-    private String status;
+    private String roleName;
+    private String correlationId;
+    private String responseCode;
+    private String responseMessage;
 }
