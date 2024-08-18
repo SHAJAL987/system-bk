@@ -32,6 +32,8 @@ public class Menu {
     private int parentId;
     @Column(name = "APP_ID")
     private int appId;
-    @Column(name = "ROLE_ID")
-    private int roleId;
+//    @Column(name = "ROLE_ID")
+//    private int roleId;
+    @Column(name = "APP_NAME")
+    String appName;
 }

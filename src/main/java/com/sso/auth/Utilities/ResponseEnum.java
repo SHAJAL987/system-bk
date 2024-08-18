@@ -40,7 +40,7 @@ public class ResponseEnum {
                 case 100:  serviceMessage = "Operation Successful.";                			break;
                 case 101:  serviceMessage = "No Record Found.";                     				break;
                 case 102:  serviceMessage = "Authentication Failed.";                 			break;
-                case 103:  serviceMessage = "One or Multiple Request Missing or not Valid.";      break;
+                case 103:  serviceMessage = "Request Exception.";      break;
                 case 104:  serviceMessage = "Framework Error.";                   				break;
                 case 105:  serviceMessage = "Error to Establish Connection";                      break;
                 case 000:  serviceMessage = "Operation Not Successful.";                      	break;

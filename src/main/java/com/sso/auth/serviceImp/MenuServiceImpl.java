@@ -4,6 +4,7 @@ import com.sso.auth.Utilities.ResponseEnum;
 import com.sso.auth.mapper.MenuMapper;
 import com.sso.auth.model.Menu;
 import com.sso.auth.payload.menu.MenuChildDto;
+import com.sso.auth.payload.menu.MenuCommon;
 import com.sso.auth.payload.menu.MenuDto;
 import com.sso.auth.repository.MenuRepository;
 import com.sso.auth.service.MenuService;
@@ -30,6 +31,7 @@ public class MenuServiceImpl implements MenuService {
         response.setCorrelationId(serviceId);
         response.setResponseCode(ResponseEnum.ResponseCode.REQUEST_SUCCESS.getCode());
         response.setResponseMessage(ResponseEnum.ResponseCode.REQUEST_SUCCESS.getMessage());
+        response.setTransactionId(request.getTransactionId());
         return response;
     }
 
@@ -40,19 +42,18 @@ public class MenuServiceImpl implements MenuService {
                 .map(menu -> new MenuChildDto(
                         menu.getId(),
                         menu.getAppId(),
+                        menu.getAppName(),  // Using appName now
                         menu.getIsChild(),
                         menu.getIsParent(),
                         menu.getLevel(),
                         menu.getName(),
                         menu.getParentId(),
-                        menu.getRoleId(),
                         menu.getUrl(),
                         menu.getIsRoot(),
                         new ArrayList<>()
                 ))
                 .collect(Collectors.toMap(MenuChildDto::getId, menuDTO -> menuDTO));
 
-        // Create the hierarchical structure
         List<MenuChildDto> rootMenus = new ArrayList<>();
         for (MenuChildDto menuDTO : menuMap.values()) {
             if (menuDTO.getParentId() == 0) {
@@ -61,7 +62,6 @@ public class MenuServiceImpl implements MenuService {
         }
         return rootMenus;
     }
-
 
     private MenuChildDto buildMenuHierarchy(MenuChildDto menuDTO, Map<Integer, MenuChildDto> menuMap) {
         List<MenuChildDto> children = menuMap.values().stream()

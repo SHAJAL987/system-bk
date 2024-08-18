@@ -2,7 +2,7 @@ package com.sso.auth.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sso.auth.Utilities.ResponseEnum;
-import com.sso.auth.model.ValidationResponse;
+import com.sso.auth.payload.exception.ValidationResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +40,7 @@ public class ValidationException{
         response.setResponseCode(ResponseEnum.ResponseCode.REQUEST_ERROR.getCode());
         response.setResponseMessage(ResponseEnum.ResponseCode.REQUEST_ERROR.getMessage());
         response.setErrors(errors);
-        response.setChannelTransactionId(concatenatedTransactionId);  // Set as needed
+        response.setTransactionId(concatenatedTransactionId);  // Set as needed
         response.setTimeStamp(getTimeStamp());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -68,9 +68,8 @@ public class ValidationException{
             String requestBody = request.getCachedBody();
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Object> requestBodyMap = objectMapper.readValue(requestBody, Map.class);
-            String channelName = (String) requestBodyMap.get("channelName");
-            String channelTransactionId = (String) requestBodyMap.get("channelTransactionId");
-            return channelName + "-" + channelTransactionId;
+            String channelTransactionId = (String) requestBodyMap.get("transactionId");
+            return channelTransactionId;
         } catch (Exception e) {
             return "Unknown-Unknown"; // Default value if extraction fails
         }

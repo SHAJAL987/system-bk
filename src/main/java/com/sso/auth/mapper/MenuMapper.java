@@ -14,7 +14,7 @@ public class MenuMapper {
         menu.setIsChild(request.getIsChild());
         menu.setAppId(request.getAppId());
         menu.setParentId(request.getParentId());
-        menu.setRoleId(request.getRoleId());
+//        menu.setRoleId(request.getRoleId());
         return menu;
     }
     public static MenuDto mapToMenuDto(Menu request){
@@ -28,7 +28,7 @@ public class MenuMapper {
         menuDto.setParentId(request.getParentId());
         menuDto.setIsChild(request.getIsChild());
         menuDto.setAppId(request.getAppId());
-        menuDto.setRoleId(request.getRoleId());
+//        menuDto.setRoleId(request.getRoleId());
         return menuDto;
     }
 }

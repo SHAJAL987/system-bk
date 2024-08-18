@@ -15,6 +15,7 @@ import com.sso.auth.payload.user.UserDto;
 import com.sso.auth.payload.user.UserListResponse;
 import com.sso.auth.payload.userRole.UserRoleDto;
 import com.sso.auth.service.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class MasterController extends BaseAuthController{
     @Autowired
     private MenuService menuService;
 
-//    private final String SERVICE_ID = CorrelationIdGen.getCorrelationId();
+    private final String SERVICE_ID = CorrelationIdGen.getCorrelationId();
 
 
     //############################## APPLICATION CONTROLLERS ##############################################
@@ -46,7 +47,7 @@ public class MasterController extends BaseAuthController{
         //logRequest(request);
         ResponseEntity response;
         try{
-            ApplicationDto objResponse = applicationService.saveApplication(serviceID,request);
+            ApplicationDto objResponse = applicationService.saveApplication(SERVICE_ID,request);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
@@ -101,12 +102,12 @@ public class MasterController extends BaseAuthController{
     //################################## ROLE CONTROLLERS ####################################################
     @PostMapping("/role")
     public ResponseEntity createRole(
-            @RequestBody RoleDto request
+            @Valid @RequestBody RoleDto request
     ){
         //logRequest(request);
         ResponseEntity response;
         try{
-            RoleDto objResponse = roleService.saveRole(serviceID,request);
+            RoleDto objResponse = roleService.saveRole(SERVICE_ID,request);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
@@ -193,7 +194,7 @@ public class MasterController extends BaseAuthController{
         //logRequest(request);
         ResponseEntity response;
         try{
-            MenuDto objResponse = menuService.saveMenu(serviceID,request);
+            MenuDto objResponse = menuService.saveMenu(SERVICE_ID,request);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
@@ -201,7 +202,7 @@ public class MasterController extends BaseAuthController{
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
 

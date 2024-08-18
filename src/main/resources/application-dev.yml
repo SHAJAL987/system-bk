@@ -22,4 +22,4 @@ spring:
       ddl-auto: update
     show-sql: true
 server:
-  port: 1001
+  port: 2001

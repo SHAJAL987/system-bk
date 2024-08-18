@@ -1,4 +1,4 @@
-package com.sso.auth.model;
+package com.sso.auth.payload.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +16,6 @@ public class ValidationResponse {
     private String serviceId;
     private String responseCode;
     private String responseMessage;
-    private String channelTransactionId;
+    private String transactionId;
     private String timeStamp;
 }

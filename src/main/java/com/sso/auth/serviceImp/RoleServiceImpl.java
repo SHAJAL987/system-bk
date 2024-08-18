@@ -28,6 +28,7 @@ public class RoleServiceImpl implements RoleService {
         roleResponse.setCorrelationId(serviceId);
         roleResponse.setResponseCode(ResponseEnum.ResponseCode.REQUEST_SUCCESS.getCode());
         roleResponse.setResponseMessage(ResponseEnum.ResponseCode.REQUEST_SUCCESS.getMessage());
+        roleResponse.setTransactionId(request.getTransactionId());
         return roleResponse;
     }
 
