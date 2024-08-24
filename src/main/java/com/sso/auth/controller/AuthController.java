@@ -2,7 +2,6 @@ package com.sso.auth.controller;
 
 import com.sso.auth.Utilities.CorrelationIdGen;
 import com.sso.auth.Utilities.ResponseEnum;
-import com.sso.auth.payload.exception.ErrorObject;
 import com.sso.auth.exception.ResourceNotFoundException;
 import com.sso.auth.payload.application.ApplicationDto;
 import com.sso.auth.payload.application.ApplicationListResponse;
@@ -11,12 +10,14 @@ import com.sso.auth.payload.menu.MenuChildDto;
 import com.sso.auth.payload.menu.MenuDto;
 import com.sso.auth.payload.role.RoleDto;
 import com.sso.auth.payload.role.RoleListResponse;
+import com.sso.auth.payload.credentials.LoginDto;
+import com.sso.auth.payload.credentials.LoginResponse;
 import com.sso.auth.payload.user.UserDto;
 import com.sso.auth.payload.user.UserListResponse;
 import com.sso.auth.payload.userRole.UserRoleDto;
 import com.sso.auth.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/v1")
-public class MasterController extends BaseAuthController{
+//@Tag(name = "Public API", description = "Operations available for all users")
+public class AuthController extends BaseAuthController{
     @Autowired
     private ApplicationService applicationService;
     @Autowired
@@ -40,6 +42,29 @@ public class MasterController extends BaseAuthController{
 
     private final String SERVICE_ID = CorrelationIdGen.getCorrelationId();
 
+    // ############################# HEALTH CHECK API ####################################################
+    @GetMapping("/health")
+    public String healthCheck(HttpServletRequest request){
+        return "Auth Health Ok - " + request.getSession().getId();
+    }
+
+    // ############################ USER LOGIN ##########################################################
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody LoginDto loginDto){
+        ResponseEntity response;
+        try{
+            LoginResponse objResponse = userService.verify(loginDto);
+            if (objResponse != null)
+                response = ResponseEntity.ok(objResponse);
+            else
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+            //logResponse(response.getBody());
+            return response;
+        }catch (Exception ex){
+            return handleException(ex,serviceID);
+        }
+        //return userService.verify(loginDto);
+    }
 
     //############################## APPLICATION CONTROLLERS ##############################################
     @PostMapping("/app")
@@ -134,7 +159,7 @@ public class MasterController extends BaseAuthController{
         }
     }
     //################################## USER CONTROLLERS ####################################################
-    @PostMapping("/user")
+    @PostMapping("/registration")
     public ResponseEntity createUser(
             @RequestBody UserDto request
     ){
@@ -186,6 +211,8 @@ public class MasterController extends BaseAuthController{
             return handleException(ex,serviceID);
         }
     }
+
+
     //################################## MENU CONTROLLERS ####################################################
     @PostMapping("/menu")
     public ResponseEntity createMenu(

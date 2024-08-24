@@ -21,5 +21,24 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  security:
+    user:
+      name: admin
+      password: admin
 server:
   port: 2001
+
+jwt:
+  expTime: 300 # 18 min
+  secret: DataCore321
+
+springdoc:
+  swagger-ui:
+    path: /open-api
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: list
+    display-request-duration: true
+    filter: false
+    show-extensions: true
+    disable-swagger-default-url: true
