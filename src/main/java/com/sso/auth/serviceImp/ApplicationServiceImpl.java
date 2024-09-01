@@ -10,7 +10,6 @@ import com.sso.auth.payload.application.ApplicationListResponse;
 import com.sso.auth.repository.ApplicationRepository;
 import com.sso.auth.service.ApplicationService;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationListResponse getAllMail(String correlationId) {
+    public ApplicationListResponse getAllApplication(String correlationId) {
         ApplicationListResponse applicationListResponse = new ApplicationListResponse();
         List<Application> applicationList = applicationRepository.findAll();
         applicationListResponse.setCorrelationId(correlationId);

@@ -13,6 +13,7 @@ public class ApplicationDto {
     private Integer appCode;
     private String appName;
     private String appUrl;
+    private String appDesc;
     private String appStatus;
     private String correlationId;
     private String responseCode;

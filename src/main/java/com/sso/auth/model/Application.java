@@ -20,6 +20,8 @@ public class Application {
     String appName;
     @Column(name = "APP_URL")
     String appUrl;
+    @Column(name = "APP_DESC")
+    String appDesc;
     @Column(name = "APP_STATUS")
     String appStatus;
 }

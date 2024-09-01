@@ -42,3 +42,13 @@ springdoc:
     filter: false
     show-extensions: true
     disable-swagger-default-url: true
+
+management:
+  endpoints:
+    web:
+      base-path: "/authactuator"
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

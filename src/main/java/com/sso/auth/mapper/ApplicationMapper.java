@@ -9,6 +9,7 @@ public class ApplicationMapper {
         Application application = new Application();
         application.setAppName(applicationDto.getAppName());
         application.setAppUrl(applicationDto.getAppUrl());
+        application.setAppDesc(applicationDto.getAppDesc());
         application.setAppStatus(applicationDto.getAppStatus());
 
         return application;
@@ -20,6 +21,7 @@ public class ApplicationMapper {
         applicationDto.setAppCode(application.getAppCode());
         applicationDto.setAppName(application.getAppName());
         applicationDto.setAppUrl(application.getAppUrl());
+        applicationDto.setAppDesc(application.getAppDesc());
         applicationDto.setAppStatus(application.getAppStatus());
 
         return applicationDto;
@@ -37,6 +39,7 @@ public class ApplicationMapper {
         applicationList.setAppCode(application.getAppCode());
         applicationList.setAppUrl(application.getAppUrl());
         applicationList.setAppName(application.getAppName());
+        applicationList.setAppDesc(application.getAppDesc());
         applicationList.setAppStatus(status);
         return applicationList;
     }

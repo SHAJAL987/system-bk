@@ -5,6 +5,6 @@ import com.sso.auth.payload.application.ApplicationListResponse;
 
 public interface ApplicationService {
     ApplicationDto saveApplication(String correlationId, ApplicationDto request);
-    ApplicationListResponse getAllMail(String correlationId);
+    ApplicationListResponse getAllApplication(String correlationId);
     ApplicationDto updateApplication(String correlationId, ApplicationDto request);
 }

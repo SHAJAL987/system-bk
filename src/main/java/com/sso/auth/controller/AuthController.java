@@ -88,7 +88,7 @@ public class AuthController extends BaseAuthController{
     public ResponseEntity getAllApplicationList(){
         ResponseEntity response;
         try{
-            ApplicationListResponse objResponse = applicationService.getAllMail(serviceID);
+            ApplicationListResponse objResponse = applicationService.getAllApplication(serviceID);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else

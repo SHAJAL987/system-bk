@@ -14,5 +14,6 @@ public class ApplicationList {
     private Integer appCode;
     private String appName;
     private String appUrl;
+    private String appDesc;
     private String appStatus;
 }
