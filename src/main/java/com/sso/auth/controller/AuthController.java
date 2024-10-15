@@ -45,7 +45,7 @@ public class AuthController extends BaseAuthController{
     // ############################# HEALTH CHECK API ####################################################
     @GetMapping("/health")
     public String healthCheck(HttpServletRequest request){
-        return "Auth Health Ok - " + request.getSession().getId();
+        return "Auth Health Ok - Test" + request.getSession().getId();
     }
 
     // ############################ USER LOGIN ##########################################################
