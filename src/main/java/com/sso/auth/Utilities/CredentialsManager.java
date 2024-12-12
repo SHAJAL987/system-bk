@@ -6,13 +6,11 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.util.Base64;
 
 public class CredentialsManager {
     private static BCryptPasswordEncoder encoder;
     public static String passwordEncoder(String password){
-        encoder = new BCryptPasswordEncoder(12);
+        encoder = new BCryptPasswordEncoder(5);
         return encoder.encode(password);
     }
 

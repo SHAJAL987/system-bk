@@ -1,6 +1,6 @@
 package com.sso.auth.controller;
 
-import com.sso.auth.Utilities.CorrelationIdGen;
+import com.sso.auth.Utilities.CommonUtilities;
 import com.sso.auth.Utilities.ResponseEnum;
 import com.sso.auth.exception.ResourceNotFoundException;
 import com.sso.auth.payload.application.ApplicationDto;
@@ -40,7 +40,8 @@ public class AuthController extends BaseAuthController{
     @Autowired
     private MenuService menuService;
 
-    private final String SERVICE_ID = CorrelationIdGen.getCorrelationId();
+    private final String SERVICE_ID = CommonUtilities.getCorrelationId();
+    private final String TIMESTAMP = CommonUtilities.getCurrentTimestamp();
 
     // ############################# HEALTH CHECK API ####################################################
     @GetMapping("/health")
@@ -57,11 +58,11 @@ public class AuthController extends BaseAuthController{
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
         //return userService.verify(loginDto);
     }
@@ -76,11 +77,11 @@ public class AuthController extends BaseAuthController{
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
 
@@ -88,15 +89,15 @@ public class AuthController extends BaseAuthController{
     public ResponseEntity getAllApplicationList(){
         ResponseEntity response;
         try{
-            ApplicationListResponse objResponse = applicationService.getAllApplication(serviceID);
+            ApplicationListResponse objResponse = applicationService.getAllApplication(SERVICE_ID);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
 
@@ -107,18 +108,18 @@ public class AuthController extends BaseAuthController{
         //logRequest(request);
         ResponseEntity response;
         try{
-            ApplicationDto objResponse = applicationService.updateApplication(serviceID,request);
+            ApplicationDto objResponse = applicationService.updateApplication(SERVICE_ID,request);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (ResourceNotFoundException ex){
-            return handleNotFoundException(ex,serviceID);
+            return handleNotFoundException(ex,SERVICE_ID);
         }
         catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
 
@@ -136,26 +137,26 @@ public class AuthController extends BaseAuthController{
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
     @GetMapping("/role")
     public ResponseEntity getRole(){
         ResponseEntity response;
         try{
-            RoleListResponse objResponse = roleService.roleList(serviceID);
+            RoleListResponse objResponse = roleService.roleList(SERVICE_ID);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
     //################################## USER CONTROLLERS ####################################################
@@ -166,22 +167,22 @@ public class AuthController extends BaseAuthController{
         //logRequest(request);
         ResponseEntity response;
         try{
-            UserDto objResponse = userService.saveUser(serviceID,request);
+            UserDto objResponse = userService.saveUser(SERVICE_ID,request);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
     @GetMapping("/user")
     public ResponseEntity getAllUser(){
         ResponseEntity response;
         try{
-            UserListResponse objResponse = userService.getAllUser(serviceID);
+            UserListResponse objResponse = userService.getAllUser(SERVICE_ID);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
@@ -189,7 +190,7 @@ public class AuthController extends BaseAuthController{
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
     //################################## USER ROLE CONTROLLERS ####################################################
@@ -200,15 +201,15 @@ public class AuthController extends BaseAuthController{
         //logRequest(request);
         ResponseEntity response;
         try{
-            UserRoleDto objResponse = userRoleService.saveUserRole(serviceID,request);
+            UserRoleDto objResponse = userRoleService.saveUserRole(SERVICE_ID,request);
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
 
@@ -225,7 +226,7 @@ public class AuthController extends BaseAuthController{
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
@@ -242,11 +243,11 @@ public class AuthController extends BaseAuthController{
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(serviceID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
             //logResponse(response.getBody());
             return response;
         }catch (Exception ex){
-            return handleException(ex,serviceID);
+            return handleException(ex,SERVICE_ID);
         }
     }
 
