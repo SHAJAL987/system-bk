@@ -10,16 +10,16 @@ spring:
   application:
     name: system-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/AUTH
+    url: jdbc:postgresql://192.168.0.101:5432/AUTH
     username: postgres
-    password: 123456
+    password: postgres
   jpa:
     properties:
       hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
   security:
     user:
@@ -31,24 +31,3 @@ server:
 jwt:
   expTime: 300 # 18 min
   secret: DataCore321
-
-springdoc:
-  swagger-ui:
-    path: /open-api
-    operations-sorter: method
-    tags-sorter: alpha
-    doc-expansion: list
-    display-request-duration: true
-    filter: false
-    show-extensions: true
-    disable-swagger-default-url: true
-
-management:
-  endpoints:
-    web:
-      base-path: "/authactuator"
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
