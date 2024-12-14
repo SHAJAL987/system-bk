@@ -29,7 +29,7 @@ public class ApplicationMapper {
 
     public static ApplicationList mapToApplicationList(Application application){
         String status;
-        if (application.getAppStatus().equals("Y")){
+        if (application.getAppStatus().equals("A")){
             status = "Active";
         }else {
             status = "Inactive";

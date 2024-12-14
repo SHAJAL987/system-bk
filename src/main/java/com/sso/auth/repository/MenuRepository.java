@@ -4,6 +4,7 @@ import com.sso.auth.model.Menu;
 import com.sso.auth.payload.menu.MenuCommon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,25 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
             "ORDER BY app_id, depth, parent_id, id",
             nativeQuery = true)
     List<Menu> findAllMenus();
+
+    @Query(value = "WITH RECURSIVE MenuHierarchy AS ( " +
+            "SELECT id, app_id, (SELECT app_name FROM application_info WHERE id = app_id) AS app_name, " +
+            "is_child, is_parent, level, name, parent_id, url, is_root, 1 AS depth " +
+            "FROM menu " +
+            "JOIN menu_role ON menu.id = menu_role.menu_id " +
+            "JOIN user_role ON menu_role.role_id = user_role.role_id " +
+            "WHERE is_root = 'Y' AND user_role.user_id = :userId " +
+            "UNION ALL " +
+            "SELECT m.id, m.app_id, (SELECT app_name FROM application_info WHERE id = m.app_id) AS app_name, " +
+            "m.is_child, m.is_parent, m.level, m.name, m.parent_id, m.url, m.is_root, mh.depth + 1 AS depth " +
+            "FROM menu m " +
+            "JOIN menu_role mr ON m.id = mr.menu_id " +
+            "JOIN user_role ur ON mr.role_id = ur.role_id " +
+            "INNER JOIN MenuHierarchy mh ON m.parent_id = mh.id " +
+            "WHERE ur.user_id = :userId) " +
+            "SELECT id, app_id, app_name, is_child, is_parent, level, name, parent_id, url, is_root " +
+            "FROM MenuHierarchy " +
+            "ORDER BY app_id, depth, parent_id, id",
+            nativeQuery = true)
+    List<Object[]> findMenuByUserId(@Param("userId") int userId);
 }

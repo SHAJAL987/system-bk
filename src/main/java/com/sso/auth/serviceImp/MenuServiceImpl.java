@@ -3,6 +3,7 @@ package com.sso.auth.serviceImp;
 import com.sso.auth.Utilities.ResponseEnum;
 import com.sso.auth.mapper.MenuMapper;
 import com.sso.auth.model.Menu;
+import com.sso.auth.payload.application.ApplicationMenuDto;
 import com.sso.auth.payload.menu.MenuChildDto;
 import com.sso.auth.payload.menu.MenuCommon;
 import com.sso.auth.payload.menu.MenuDto;
@@ -61,6 +62,11 @@ public class MenuServiceImpl implements MenuService {
             }
         }
         return rootMenus;
+    }
+
+    @Override
+    public List<ApplicationMenuDto> getMenusByUserId(int userId) {
+        return null;
     }
 
     private MenuChildDto buildMenuHierarchy(MenuChildDto menuDTO, Map<Integer, MenuChildDto> menuMap) {
