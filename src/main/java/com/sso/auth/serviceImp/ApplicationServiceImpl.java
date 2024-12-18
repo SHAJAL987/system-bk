@@ -8,18 +8,19 @@ import com.sso.auth.payload.application.ApplicationDto;
 import com.sso.auth.payload.application.ApplicationList;
 import com.sso.auth.payload.application.ApplicationListResponse;
 import com.sso.auth.repository.ApplicationRepository;
+import com.sso.auth.repository.MenuRepository;
 import com.sso.auth.service.ApplicationService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
+    @Autowired
     private ApplicationRepository applicationRepository;
 
     @Override
@@ -66,6 +67,24 @@ public class ApplicationServiceImpl implements ApplicationService {
         response.setResponseCode(ResponseEnum.ResponseCode.REQUEST_SUCCESS.getCode());
         response.setResponseMessage(ResponseEnum.ResponseCode.REQUEST_SUCCESS.getMessage());
         return response;
+    }
+
+    @Override
+    public List<ApplicationList> getApplicationsByUserId(int userId) {
+        List<Map<String, Object>> results = applicationRepository.findApplicationsByUserId(userId);
+        List<ApplicationList> applications = new ArrayList<>();
+
+        for (Map<String, Object> result : results) {
+            ApplicationList application = new ApplicationList();
+            application.setId((Integer) result.get("app_id"));
+            application.setAppCode((Integer) result.get("app_code"));
+            application.setAppName((String) result.get("app_name"));
+            application.setAppUrl((String) result.get("app_url"));
+            application.setAppDesc((String) result.get("app_desc"));
+            application.setAppStatus((String) result.get("app_status"));
+            applications.add(application);
+        }
+        return applications;
     }
 
     private Integer generateUniqueAppCode() {

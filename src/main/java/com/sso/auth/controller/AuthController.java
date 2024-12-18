@@ -5,6 +5,8 @@ import com.sso.auth.Utilities.ResponseEnum;
 import com.sso.auth.exception.ResourceNotFoundException;
 import com.sso.auth.payload.application.ApplicationDto;
 import com.sso.auth.payload.application.ApplicationListResponse;
+import com.sso.auth.payload.application.ApplicationMenuCustomDto;
+import com.sso.auth.payload.application.ApplicationMenuDto;
 import com.sso.auth.payload.exception.ExceptionDetails;
 import com.sso.auth.payload.menu.MenuChildDto;
 import com.sso.auth.payload.menu.MenuDto;
@@ -240,6 +242,23 @@ public class AuthController extends BaseAuthController{
         ResponseEntity response;
         try{
             List<MenuChildDto> objResponse = menuService.getAllMenus();
+            if (objResponse != null)
+                response = ResponseEntity.ok(objResponse);
+            else
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+            //logResponse(response.getBody());
+            return response;
+        }catch (Exception ex){
+            return handleException(ex,SERVICE_ID);
+        }
+    }
+
+    @GetMapping("/fetch-app-menu")
+    public ResponseEntity<List<ApplicationMenuCustomDto>> fetchApplicationMenus(){
+        //logRequest(request);
+        ResponseEntity response;
+        try{
+            List<ApplicationMenuCustomDto> objResponse = menuService.fetchApplicationMenus();
             if (objResponse != null)
                 response = ResponseEntity.ok(objResponse);
             else
