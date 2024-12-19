@@ -1,8 +1,10 @@
 package com.sso.auth.serviceImp;
 
 import com.sso.auth.Utilities.ResponseEnum;
+import com.sso.auth.exception.ResourceNotFoundException;
 import com.sso.auth.mapper.MenuMapper;
 import com.sso.auth.model.Menu;
+import com.sso.auth.payload.CommonResponse;
 import com.sso.auth.payload.application.ApplicationMenuCustomDto;
 import com.sso.auth.payload.application.ApplicationMenuDto;
 import com.sso.auth.payload.menu.MenuChildDto;
@@ -159,6 +161,19 @@ public class MenuServiceImpl implements MenuService {
 
         // Step 2: Return all applications with their menus, including those with no menus
         return new ArrayList<>(appMap.values());
+    }
+
+    @Override
+    public CommonResponse menuDeletedById(int menuId,String correlationId) {
+        CommonResponse response = new CommonResponse();
+        if (!menuRepository.existsById(menuId)){
+            throw new ResourceNotFoundException("Menu with Id Not found","Menu Id",String.valueOf(menuId));
+        }
+        menuRepository.deleteById(menuId);
+        response.setCorrelationId(correlationId);
+        response.setResponseCode(ResponseEnum.ResponseCode.REQUEST_SUCCESS.getCode());
+        response.setResponseMessage(ResponseEnum.ResponseCode.REQUEST_SUCCESS.getMessage());
+        return response;
     }
 
     private MenuChildDto buildMenuHierarchy(MenuChildDto menuDTO, Map<Integer, MenuChildDto> menuMap) {
