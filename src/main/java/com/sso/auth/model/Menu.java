@@ -29,7 +29,7 @@ public class Menu {
     @Column(name = "IS_CHILD")
     private String isChild;
     @Column(name = "PARENT_ID")
-    private int parentId;
+    private int parentId = 0;
     @Column(name = "APP_ID")
     private int appId;
 //    @Column(name = "ROLE_ID")
