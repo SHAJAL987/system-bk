@@ -5,13 +5,18 @@ import com.sso.auth.Utilities.ResponseEnum;
 import com.sso.auth.mapper.LogingMapper;
 import com.sso.auth.mapper.UserMapper;
 import com.sso.auth.model.User;
+import com.sso.auth.payload.application.ApplicationList;
+import com.sso.auth.payload.application.ApplicationMenuDto;
 import com.sso.auth.payload.credentials.LoginDto;
 import com.sso.auth.payload.credentials.LoginResponse;
 import com.sso.auth.payload.credentials.ParamOne;
 import com.sso.auth.payload.user.*;
+import com.sso.auth.repository.MenuRepository;
 import com.sso.auth.repository.UserRepository;
 import com.sso.auth.repository.UserRoleRepository;
+import com.sso.auth.service.ApplicationService;
 import com.sso.auth.service.JWTService;
+import com.sso.auth.service.MenuService;
 import com.sso.auth.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -35,6 +41,10 @@ public class UserServiceImpl implements UserService {
     UserRoleRepository userRoleRepository;
     @Autowired
     JWTService jwtService;
+    @Autowired
+    private MenuService menuService;
+    @Autowired
+    private ApplicationService applicationService;
 
     @Override
     public UserDto saveUser(String serviceId, UserDto request) {
@@ -72,6 +82,12 @@ public class UserServiceImpl implements UserService {
             if (userBasic instanceof Object[]) {
                 paramOne = LogingMapper.convertToParamOne((Object[]) userBasic);
             }
+            User user = userRepository.findByMail(loginDto.getMail());
+            System.out.println(user.getId());
+            List<ApplicationMenuDto> menu = menuService.getMenusByUserId(user.getId());
+            List<ApplicationList> app = applicationService.getApplicationsByUserId(user.getId());
+            response.setApplications(app);
+            response.setMenu(menu);
             response.setUserBasic(paramOne);
             response.setToken(jwtService.generateToken(loginDto.getMail()));
         }

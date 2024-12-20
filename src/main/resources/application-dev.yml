@@ -10,17 +10,17 @@ spring:
   application:
     name: system-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/AUTH
+    url: jdbc:postgresql://127.0.0.1:5432/AUTH
     username: postgres
     password: 123456
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        format_sql: true
     hibernate:
-      ddl-auto: none
-    show-sql: true
+      ddl-auto: update
+    show-sql: false
   security:
     user:
       name: admin
@@ -29,5 +29,5 @@ server:
   port: 2001
 
 jwt:
-  expTime: 300 # 18 min
+  expTime: 1080 # 18 min
   secret: DataCore321
