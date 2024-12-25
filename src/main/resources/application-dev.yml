@@ -12,12 +12,12 @@ spring:
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/AUTH
     username: postgres
-    password: 123456
+    password: admin
   jpa:
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
-#        format_sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
     hibernate:
       ddl-auto: update
     show-sql: false
