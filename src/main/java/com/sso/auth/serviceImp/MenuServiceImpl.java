@@ -176,6 +176,17 @@ public class MenuServiceImpl implements MenuService {
         return response;
     }
 
+    @Override
+    public CommonResponse menuUpdatedById(int menuId, String correlationId) {
+        CommonResponse response = new CommonResponse();
+        if (!menuRepository.existsById(menuId)){
+            throw new ResourceNotFoundException("Menu with Id Not found","Menu Id",String.valueOf(menuId));
+        }
+
+        Optional<Menu> menu = menuRepository.findById(menuId);
+        return null;
+    }
+
     private MenuChildDto buildMenuHierarchy(MenuChildDto menuDTO, Map<Integer, MenuChildDto> menuMap) {
         List<MenuChildDto> children = menuMap.values().stream()
                 .filter(child -> child.getParentId() == menuDTO.getId())

@@ -288,5 +288,22 @@ public class AuthController extends BaseAuthController{
         }
     }
 
+    @PutMapping("/menu/{id}")
+    public ResponseEntity<CommonResponse> updateMenuById(@PathVariable int id){
+        //logRequest(request);
+        ResponseEntity response;
+        try{
+            CommonResponse objResponse = menuService.menuDeletedById(id,SERVICE_ID);
+            if (objResponse != null)
+                response = ResponseEntity.ok(objResponse);
+            else
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDetails(SERVICE_ID, ResponseEnum.ResponseCode.NOT_FOUND.getCode(), ResponseEnum.ResponseCode.NOT_FOUND.getMessage()));
+            //logResponse(response.getBody());
+            return response;
+        }catch (Exception ex){
+            return handleException(ex,SERVICE_ID);
+        }
+    }
+
 
 }

@@ -14,4 +14,5 @@ public interface MenuService {
     List<ApplicationMenuDto> getMenusByUserId(int userId);
     List<ApplicationMenuCustomDto> fetchApplicationMenus();
     CommonResponse menuDeletedById(int menuId,String correlationId);
+    CommonResponse menuUpdatedById(int menuId,String correlationId);
 }
